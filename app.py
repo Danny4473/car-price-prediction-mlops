@@ -1,6 +1,6 @@
-
 from flask import Flask, request, jsonify
 import joblib
+import pandas as pd
 import os
 
 app = Flask(__name__)
@@ -25,14 +25,16 @@ def predict():
 
     data = request.get_json(silent=True)
 
-    if not data:
+    if not isinstance(data, dict) or not data:
         return jsonify({
             "error": "Please provide car features as JSON"
         }), 400
 
     try:
         model = joblib.load(MODEL_PATH)
-        prediction = model.predict([list(data.values())])[0]
+        input_data = pd.DataFrame([data])
+
+        prediction = model.predict(input_data)[0]
 
         return jsonify({
             "predicted_selling_price": float(prediction)
