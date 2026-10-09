@@ -1,0 +1,24 @@
+
+Car Price Prediction - Release Candidate
+
+Application: Flask REST API
+Model: Random Forest Regressor
+Training script: train_model.py
+Model file: car_price_model.pkl
+Evaluation metrics: metrics.json
+
+Setup:
+1. Install Python 3.11.
+2. Install dependencies using:
+   pip install -r requirements.txt
+3. Train the model using:
+   python train_model.py
+4. Start the API using:
+   python app.py
+
+API endpoints:
+GET /       - Check API health
+POST /predict - Predict used car selling price
+
+Prediction requests must contain a JSON object with the feature
+names used by the training dataset, excluding Selling_Price.
